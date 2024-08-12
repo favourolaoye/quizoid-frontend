@@ -18,9 +18,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSelectExamType }) => {
                         Close
                     </button>
                 </div>
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between w-full p-3">
                     <button onClick={() => onSelectExamType('theory')}
-                        className="bg-blue-500 w-1/2 text-white py-2 px-4 rounded hover:bg-blue-700">
+                        className="bg-blue-500 w-1/2 text-white p-2 mr-5 rounded hover:bg-blue-700">
                         Theory
                     </button>
                     <button onClick={() => onSelectExamType('multichoice')}

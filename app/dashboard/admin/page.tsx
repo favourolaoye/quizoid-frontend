@@ -2,17 +2,11 @@
 
 import { useState } from 'react';
 import * as XLSX from 'xlsx';
-
+import { toast } from 'react-toastify';
 const studentsData = [
   { name: 'Favour Olaoye', matricNumber: '20205714', email: 'olaoyesf.20@funaab.edu.ng', level: '100', department: 'Computer Science' },
   { name: 'Olayemi Moses', matricNumber: '20203161', email: 'jane@example.com', level: '200', department: 'Mathematics' },
-  { name: 'Obadimu Ismail', matricNumber: '20203161', email: 'alice@example.com', level: '300', department: 'Computer Science' },
-  { name: 'Adeyemi Bidemi', matricNumber: '20205719', email: 'bob@example.com', level: '400', department: 'Statistics' },
-  { name: 'Olayemi Moses', matricNumber: '20203161', email: 'jane@example.com', level: '200', department: 'Mathematics' },
-  { name: 'Obadimu Ismail', matricNumber: '20203161', email: 'alice@example.com', level: '300', department: 'Computer Science' },
-  { name: 'Olayemi Moses', matricNumber: '20203161', email: 'jane@example.com', level: '200', department: 'Mathematics' },
-  { name: 'Obadimu Ismail', matricNumber: '20203161', email: 'alice@example.com', level: '300', department: 'Computer Science' },
-  // Add more student data here
+  { name: 'Obadimu Ismail', matricNumber: '20203161', email: 'alice@example.com', level: '300', department: 'Computer Science' }
 ];
 
 export default function StudentsPage() {
@@ -21,39 +15,58 @@ export default function StudentsPage() {
   const [showModal, setShowModal] = useState(false);
   const [students, setStudents] = useState(studentsData);
 
-  const filteredStudents = students.filter(student => {
+  const filteredStudents = students.filter((student: any) => {
     return (
       (department ? student.department === department : true) &&
-      (level ? student.level === level : true)
+      (level ? student.level === level : true) 
     );
   });
 
-  const handleFileUpload = (event : any) => {
+  
+  const handleFileUpload = async (event: any) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-
-    reader.onload = (e : any) => {
+  
+    reader.onload = async (e: any) => {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
       const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
       const sheetData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-
-      const newStudents = sheetData.slice(1).map((row : any)  => { 
-        ({
-        name: row[2],
-        matricNumber: row[1],
-        email: row[4],
-        level: row[2],
-        department: row[0],
-      })});
-
-      setStudents(prevStudents => [...prevStudents, ...newStudents]);
-      setShowModal(false); // Close the modal after upload
+  
+      const newStudents = sheetData.slice(1).map((row: any) => ({
+        name: `${row[0]} ${row[1]}`,  // Adjust if necessary
+        matricNo: row[2],
+        email: row[3],
+        level: row[4],
+        department: row[5],
+        password: row[1],  // Assuming surname is in row[1], which will be hashed on the backend
+      })).filter(student => student.name && student.matricNo && student.email && student.level && student.department && student.password);
+  
+      try {
+        const response = await fetch('http://localhost:3000/api/students/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newStudents),
+        });
+  
+        if (response.ok) {
+          setStudents((prevStudents: any) => [...prevStudents, ...newStudents]);
+          setShowModal(false);
+          toast.success("Students uploaded successfully");
+        } else {
+          const errorData = await response.json();
+          toast.error(`Error: ${errorData.message || 'Failed to upload students'}`);
+        }
+      } catch (error: any) {
+        toast.error(`Error: ${error.message}`);
+      }
     };
-
+  
     reader.readAsArrayBuffer(file);
   };
-
+  
   return (
     <div className="p-4 w-full">
       <div className="flex justify-between items-center mb-4">
@@ -110,7 +123,7 @@ export default function StudentsPage() {
           </tr>
         </thead>
         <tbody>
-          {filteredStudents.map((student, index) => (
+          {filteredStudents.map((student: any, index: any) => (
             <tr key={index}>
               <td className="py-2 px-4 border-b text-left">{student.name}</td>
               <td className="py-2 px-4 border-b text-left">{student.matricNumber}</td>

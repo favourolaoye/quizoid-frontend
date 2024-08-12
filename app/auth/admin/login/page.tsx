@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/contexts/UserContext';
-const url = process.env.NEXT_PUBLIC_BASE_API_URL;
+const url = "http://localhost:3000/api";
 
 
 export default function AdminLogin() {
@@ -89,7 +89,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             onClick={() => {
-              setadminID("webflux@funaab-ict");
+              setadminID("weblux@funaab-ict");
               setPassword("favour2024");
             }}
             className="w-full px-4 py-2 font-medium text-white bg-green-700 rounded hover:bg-green-400 focus:outline-none"

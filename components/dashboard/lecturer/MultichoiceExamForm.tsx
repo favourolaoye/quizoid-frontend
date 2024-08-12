@@ -26,14 +26,13 @@ interface ExamData {
 }
 
 const MultichoiceExamForm: React.FC<MultichoiceExamFormProps> = ({ courseCode, action, onSubmit }) => {
-
     const { user } = useUser();
     const [examData, setExamData] = useState<ExamData>({
         courseCode,
         instruction: '',
         type: 'multichoice',
         questions: [{ question: '', options: ['', '', '', ''], correctOption: 0 }],
-        lecturerID: '',
+        lecturerID: user?.details.lecturerID || '',
     });
 
     const handleQuestionChange = (index: number, value: string) => {
@@ -55,13 +54,10 @@ const MultichoiceExamForm: React.FC<MultichoiceExamFormProps> = ({ courseCode, a
     };
 
     const addQuestion = () => {
-        setExamData({
-            ...examData,
-            instruction: examData.instruction,
-            type: 'multichoice',
-            questions: [...examData.questions, { question: '', options: ['', '', '', ''], correctOption: 0 }],
-            lecturerID: user?.details.lecturerID,
-        });
+        setExamData((prevExamData) => ({
+            ...prevExamData,
+            questions: [...prevExamData.questions, { question: '', options: ['', '', '', ''], correctOption: 0 }],
+        }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -69,16 +65,16 @@ const MultichoiceExamForm: React.FC<MultichoiceExamFormProps> = ({ courseCode, a
         try {
             const response = await createExam(examData);
             onSubmit(examData);
-            toast.success(response.message)
+            toast.success(response.message);
             setExamData({
                 courseCode,
                 instruction: '',
                 type: 'multichoice',
                 questions: [{ question: '', options: ['', '', '', ''], correctOption: 0 }],
-                lecturerID: '',
+                lecturerID: user?.details.lecturerID || '',
             });
-        } catch (error:any) {
-            toast.error('Error creating exam:', error.message);
+        } catch (error: any) {
+            toast.error(`Error creating exam: ${error.message}`);
         }
     };
 

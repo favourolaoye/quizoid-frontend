@@ -27,7 +27,6 @@ export default function LecturerLogin() {
 
       Cookies.set('token', token, { expires: 1, path: '/', sameSite: 'Strict' });
       Cookies.set('user', JSON.stringify(user), { expires: 1, path: '/', sameSite: 'Strict' });
-
       setUser(user); 
       toast.success("Login successful");
       router.push('/dashboard/lecturer', { scroll: false });

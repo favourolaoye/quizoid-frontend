@@ -8,6 +8,7 @@ import { useUser } from '@/contexts/UserContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import CourseCard from '@/components/dashboard/lecturer/CourseCard';
+import { checkTExam } from '@/api/Theory';
 
 interface Course {
     code: string;
@@ -30,20 +31,30 @@ export default function ManageCourses() {
         setDropdownOpen(prevState => ({ ...prevState, [courseCode]: !prevState[courseCode] }));
     };
     
-    const handleCreateExam = async (course: Course)=> {
+    const handleCreateExam = async (course: Course) => {
         try {
-            const response = await checkExam(course.code);
-            console.log(response)
+            const response = await checkTExam(course.code);
+            const responseMessage = response.message || 'Unexpected error';
+    
             if (response.status === 200) {
                 toast.error('Exam already exists for this course.');
                 alert('Exam already exists for this course.');
                 return;
+            } else {
+                toast.info(responseMessage);
             }
+    
+            console.log(responseMessage);
         } catch (error: any) {
+            const errorMessage = error.message || 'Unexpected error';
+    
+            // toast.error(errorMessage);
+            console.log(errorMessage);
             setSelectedCourse(course);
             setIsModalOpen(true);
         }
     };
+    
 
   
     const handleDeleteExam = async (course: Course)=> {
@@ -68,6 +79,7 @@ export default function ManageCourses() {
     const handleEditExam = async (course: Course)=> {
         try {
             const response = await checkExam(course.code);
+            toast.success(response);
             console.log(response)
             if (response.status === 200) {
                 if (course.examType) {
@@ -78,7 +90,7 @@ export default function ManageCourses() {
           }
         } catch (error: any) {
             console.error(error);
-            alert(error.message);
+            toast.error(error.message);
         }
     }
 

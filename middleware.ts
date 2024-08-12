@@ -5,7 +5,7 @@ export default function middleware(request: any) {
     console.log(token);
 
     if(!token) {   
-        return NextResponse.redirect( new URL('/auth/login', request.url)); 
+        return NextResponse.redirect( new URL('/auth/admin/login', request.url)); 
     }
     return NextResponse.next();
   

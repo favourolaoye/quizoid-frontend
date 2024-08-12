@@ -9,8 +9,8 @@ export default function Widjets() {
 
     const Widjets = [
         {label:'Manage Courses', desc:'Create, edit and delete exams questions and answers for the courses you take.', ref:'/dashboard/lecturer/manage-courses',set:'Courses Taken'},
-        {label:'View Answers', desc:'Create, edit and delete exams questions and answers for the courses you take.', ref:'/dashboard/lecturer/answers', set:'Theory Answers'},
-        {label:'View Results', desc:'Create, edit and delete exams questions and answers for the courses you take.', ref:'/dashboard/lecturer/view-results', set:'View Results'},
+        {label:'View Answers', desc:'View answers for the courses you take.', ref:'/dashboard/lecturer/answers', set:'Theory Answers'},
+        {label:'View Results', desc:'View results and answers for the courses you take.', ref:'/dashboard/lecturer/view-results', set:'View Results'},
         {label:'Manage Accounts', desc:'Manage your account details such as username and passwords.', ref:'/dashboard/lecturer/settings', set:'Settings'},
     ]
 

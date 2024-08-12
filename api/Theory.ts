@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://localhost:3000/api/mcq';
+const API_URL = 'http://localhost:3000/api/theory';
 
 interface ExamData {
     instruction: string;
@@ -68,7 +68,7 @@ export const deleteExam = async (courseCode: string) => {
     }
 };
 
-export const checkExam = async (courseCode: string) => {
+export const checkTExam = async (courseCode: string) => {
     try {
         const token = Cookies.get('token');
         const response = await axios.get(`${API_URL}/check/${courseCode}`, {

@@ -13,7 +13,7 @@ export default function RegisterAdmin() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const url = process.env.NEXT_PUBLIC_BASE_API_URL;
+  const url = "http://localhost:3000/api";
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ export default function RegisterAdmin() {
     try {
       const response = await axios.post(`${url}/admin/register`, { adminID, name, password });
       toast.success('Registration successful!');
-      router.push('/auth/admin/login'); // Redirect to the login page after successful registration
+      router.push('/auth/admin/login');
     } catch (error: any) {
       if (error.response) {
         toast.error(`Registration failed: ${error.response.data.message}`);
