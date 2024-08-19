@@ -19,8 +19,9 @@ export default function Sidebar() {
     {id:0, label:'Students', icon:<FaHome/>, ref:'/dashboard/admin'},
     {id:1, label:'Lecturers', icon:<FaListCheck/>, ref:'/dashboard/admin/lecturer'},
     {id:2, label:'Edit Exams', icon:<RiQuestionAnswerLine/>, ref:'/dashboard/admin/exam'},
-    {id:3, label:'Generate Link', icon:<FaListCheck/>, ref:'/dashboard/admin/generate-link'},
-    {id:4, label:'View Results', icon:<MdScoreboard/>, ref:'/dashboard/admin/results'},
+    {id:3, label:'upload courses', icon:<FaListCheck/>, ref:'/dashboard/admin/upload-courses'},
+    {id:4, label:'Generate Link', icon:<FaListCheck/>, ref:'/dashboard/admin/generate-link'},
+    {id:5, label:'View Results', icon:<MdScoreboard/>, ref:'/dashboard/admin/results'},
 ];
 
   const handleSignOut = () =>{
