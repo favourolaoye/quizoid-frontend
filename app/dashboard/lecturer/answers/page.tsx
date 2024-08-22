@@ -9,5 +9,3 @@ export default function StudentAnswers() {
     </div>
   )
 }
-// i will be one of the greatest
-// never been small

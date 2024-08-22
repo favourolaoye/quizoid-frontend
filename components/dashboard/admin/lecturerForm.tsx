@@ -48,7 +48,7 @@ export default function LecturerForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${url}/lecturer/add`, formData);
+      const response = await axios.post(`http://localhost:3000/api/lecturer/add`, formData);
       console.log(response);
       console.log('Response:', response.data);
       toast.success('Lecturer added successfully!');
