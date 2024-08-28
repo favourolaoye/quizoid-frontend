@@ -1,6 +1,6 @@
 import React from 'react'
-
 export default function CourseCard(props:any) {
+
   return (
     <tr key={props.course.code}>
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{props.course.code}</td>

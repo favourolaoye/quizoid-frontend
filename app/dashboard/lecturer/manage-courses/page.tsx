@@ -6,9 +6,8 @@ import React, { useState, useEffect } from 'react';
 import { updateExam, deleteExam, checkExam } from '@/api/exam';
 import { useUser } from '@/contexts/UserContext';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import CourseCard from '@/components/dashboard/lecturer/CourseCard';
-import { checkTExam } from '@/api/Theory';
 
 interface Course {
     code: string;
@@ -33,14 +32,15 @@ export default function ManageCourses() {
     
     const handleCreateExam = async (course: Course) => {
         try {
-            const response = await checkTExam(course.code);
+            const response = await checkExam(course.code);
             const responseMessage = response.message || 'Unexpected error';
-    
             if (response.status === 200) {
                 toast.error('Exam already exists for this course.');
-                alert('Exam already exists for this course.');
+                // alert('Exam already exists for this course.');
                 return;
             } else {
+                // alert('exam created!');                
+                toast.success('Exam created sucessfully');
                 toast.info(responseMessage);
             }
     
@@ -96,6 +96,7 @@ export default function ManageCourses() {
 
   return (
     <div className='w-full h-full bg-white rounded-xl p-4'>
+        <ToastContainer/>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr className="uppercase text-left text-xs text-gray-500 tracking-wider">

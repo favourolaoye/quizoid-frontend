@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 
 interface Course {
-    code: string;
+    courseCode: string;
     title: string;
     students: number;
 }
@@ -15,12 +15,12 @@ const ResultCard: React.FC<ResultCardProps>=({ course })=> {
   const router = useRouter();
 
   const handleViewResults = ()=> {
-    router.push(`/dashboard/lecturer/view-results/${course.code}`);
+    router.push(`/dashboard/lecturer/view-results/${course.courseCode}`);
   };
 
   return (
-    <tr key={course.code}>
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{course.code}</td>
+    <tr key={course.courseCode}>
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{course.courseCode}</td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{course.title}</td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{course.students}</td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

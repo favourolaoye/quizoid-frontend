@@ -34,10 +34,11 @@ const Upload = () => {
         department: row.department,
         level: row.level,
         units: row.units,
+        code: row.courseCode
       }));
 
       try {
-        await axios.post('http://localhost:3000/api/courses/upload', { courses });
+        await axios.post('http://localhost:3000/api/info/upload', { courses });
         toast.success('Courses uploaded successfully!');
       } catch (error: any) {
         toast.error('Failed to upload courses.');
