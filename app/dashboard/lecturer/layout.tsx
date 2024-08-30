@@ -1,7 +1,7 @@
 "use client";
 
 import { ContentProvider } from "@/components/dashboard/lecturer/ContentContext";
-import Sidebar from "@/components/dashboard/lecturer/sidebar";
+import Sidebar from "@/components/dashboard/lecturer/Sidebar";
 import { useUser } from "@/contexts/UserContext";
 import { ReactNode } from "react";
 

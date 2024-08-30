@@ -17,7 +17,7 @@ const MultichoiceExamPage = () => {
         router.push('/dashboard/lecturer/manage-courses');
     };
 
-    return <MultichoiceExamForm courseCode={code as string} action={action as string} onSubmit={handleSubmit} />;
+    return <MultichoiceExamForm courseCode={code as string} action={action as string} onSubmit={handleSubmit} title={''} />;
 };
 
 export default MultichoiceExamPage;

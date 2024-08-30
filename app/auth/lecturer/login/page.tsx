@@ -37,7 +37,6 @@ export default function LecturerLogin() {
         toast.error('Login failed: No response from server');
       } else {
         toast.error(`Login failed: ${error.message}`);
-        console.error("Login failed:", error?.response?.data?.message);
       }
     } finally {
       setIsSubmitting(false);

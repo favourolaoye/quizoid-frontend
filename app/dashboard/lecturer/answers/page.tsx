@@ -43,6 +43,12 @@ export default function Page() {
       return updatedState;
     });
   };
+  useEffect(()=> {
+    const data = localStorage.getItem('data');
+    if(data?.valueOf()){
+      
+    }
+  })
 
   return (
     <div>
